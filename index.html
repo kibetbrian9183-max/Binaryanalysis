@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Primevestbinary</title>
+<style>
+:root{--bg:#f4f6fb;--card:#fff;--fg:#0b1f3a;--mut:#5b6b82;--line:#e3e8f0;--nav:#0b1f3a;--act:#102a71;--ic:#ff6444;--login:#087cff;--tokbg:#f5f8fd;--tokfg:#172b4d;--link:#1670ff;--hdr:#fff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#060d1a;--card:#0e1a2e;--fg:#e8eef9;--mut:#93a3bd;--line:#1c2b45;--tokbg:#14233d;--tokfg:#e8eef9;--hdr:#0a1426;--link:#5b9bff}}
+:root[data-theme="dark"]{--bg:#060d1a;--card:#0e1a2e;--fg:#e8eef9;--mut:#93a3bd;--line:#1c2b45;--tokbg:#14233d;--tokfg:#e8eef9;--hdr:#0a1426;--link:#5b9bff}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;max-width:640px;margin-inline:auto;min-height:100vh}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--hdr);z-index:10}
+button{font:inherit;cursor:pointer;border:0;color:inherit}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--link);outline-offset:2px}
+svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--hdr);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:10px 14px}
+.brand{flex:1;min-width:0}.brand b{display:block;font-size:19px;letter-spacing:-.3px;line-height:1.15}.brand span{font-size:12px;color:var(--mut)}
+.brand i{font-style:normal;font-weight:700}
+.bal{display:flex;align-items:center;gap:8px;font-weight:600;background:var(--tokbg);border-radius:20px;padding:6px 12px}
+.btn{border-radius:10px;padding:12px 16px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.login{background:var(--login);color:#fff}.tok{background:var(--tokbg);color:var(--tokfg);border:1px solid var(--line)}
+.sign{background:none;color:var(--link);padding:12px 4px}
+.sm{padding:8px 14px;font-size:14px}
+.hero{padding:34px 18px 20px;text-align:center}
+.hero h1{font-size:30px;line-height:1.15;margin:0 0 10px;letter-spacing:-.6px}.hero p{color:var(--mut);margin:0 auto 22px;max-width:420px}
+.cta{display:flex;flex-direction:column;gap:10px;max-width:340px;margin:0 auto}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:8px 14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;text-align:left}
+.card svg{color:var(--ic);margin-bottom:6px}.card b{display:block}.card small{color:var(--mut)}
+h2{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);text-align:center;margin:26px 0 8px}
+.risk{margin:22px 14px;padding:12px;border-radius:12px;background:var(--card);border:1px solid var(--line);font-size:13px;color:var(--mut)}
+nav{background:var(--nav);display:flex;overflow-x:auto;scrollbar-width:none;position:sticky;top:calc(env(safe-area-inset-top,0px) + 57px);z-index:8}
+nav::-webkit-scrollbar{display:none}
+nav button{background:none;color:#fff;display:flex;align-items:center;gap:8px;padding:14px 16px;font-weight:600;white-space:nowrap;font-size:15px}
+nav button svg{color:var(--ic)}nav button.on{background:var(--act)}
+.page{padding:16px 14px 150px}
+.hello{text-align:center;font-size:24px;font-weight:700;margin:10px 0 2px}.quote{text-align:center;color:var(--mut);font-style:italic;margin:0 0 18px}
+.qa{display:grid;grid-template-columns:1fr 1fr;gap:10px}.qa .card{text-align:center;cursor:pointer}.qa .card svg{width:26px;height:26px}
+.soon{text-align:center;padding:40px 16px}.soon svg{width:34px;height:34px;color:var(--ic)}.soon h3{margin:8px 0 4px}.soon p{color:var(--mut);margin:0}
+.dock{position:fixed;left:0;right:0;bottom:0;max-width:640px;margin:auto;background:var(--hdr);border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:10px}
+.run{background:var(--tokbg);color:var(--mut);border-radius:8px;padding:10px 16px;display:flex;gap:6px;align-items:center;font-weight:600;opacity:.8}
+.chip{background:#ffd60a;color:#1a1a1a;border-radius:8px;padding:6px 10px;font-weight:700;font-size:13px}
+.sheetbg{position:fixed;inset:0;background:rgba(3,10,25,.6);z-index:20;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--card);width:100%;max-width:640px;border-radius:18px 18px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom,0px))}
+.sheet h3{margin:0 0 4px;font-size:20px}.sheet p{color:var(--mut);margin:0 0 14px;font-size:14px}
+input{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--tokbg);color:var(--fg);font:inherit;margin:6px 0 10px}
+label{font-size:13px;color:var(--mut);font-weight:600}
+.or{text-align:center;color:var(--mut);font-size:13px;margin:12px 0}
+.msg{font-size:13px;color:#d93025;min-height:18px;margin:2px 0 8px}
+.link{background:none;color:var(--link);font-size:14px;padding:8px;display:block;margin:6px auto 0}
+.bal select{background:none;border:0;color:inherit;font:inherit;font-weight:600;max-width:46vw}
+.bal option{color:#000}
+.cbar{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;align-items:center}.cbar::-webkit-scrollbar{display:none}
+.cbar select{background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:8px;font:inherit}
+.tf{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-weight:600;color:var(--mut)}.tf.on{background:var(--act);color:#fff;border-color:var(--act)}
+.lastpx{font-size:28px;font-weight:700;font-variant-numeric:tabular-nums;margin:4px 2px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card select{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--tokbg);color:var(--fg);font:inherit;margin:6px 0 10px}
+.card label{display:block}
+.buyb{background:#26a69a;color:#fff;flex-direction:column;gap:2px}.sell{background:#ef5350;color:#fff;flex-direction:column;gap:2px}.buyb small,.sell small{font-weight:500;opacity:.9}
+textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--tokbg);color:var(--fg);font:13px ui-monospace,monospace;margin:6px 0 10px}
+.card b{display:block;margin-bottom:6px}
+.gbtn{width:100%;margin-top:10px;background:linear-gradient(90deg,#1a3a9c,#2f7bf0);color:#fff;letter-spacing:.04em;font-weight:700}
+.tag{display:inline-block;font-size:12px;border-radius:6px;padding:2px 8px;margin:6px 6px 0 0;background:var(--tokbg);color:var(--mut);border:1px solid var(--line)}
+.rct{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}.rct td,.rct th{padding:7px 4px;border-bottom:1px solid var(--line);text-align:right}.rct th{color:var(--mut);font-weight:600}.rct td:first-child,.rct th:first-child{text-align:left}
+.stat small{color:var(--mut);display:block}.stat b{font-size:19px;margin:2px 0 0}
+.bar{height:10px;border-radius:5px;background:var(--act);min-width:2px}.drow{display:grid;grid-template-columns:18px 1fr 52px;gap:8px;align-items:center;margin:6px 0}
+.dch{display:inline-block;width:26px;text-align:center;border-radius:6px;padding:3px 0;margin:2px;font-weight:600;font-size:14px}.dch.e{background:rgba(38,166,154,.22)}.dch.o{background:rgba(245,166,35,.25)}
+.qs{cursor:pointer}.qs.on{border-color:var(--link);box-shadow:0 0 0 1px var(--link)}.qs b{display:block;margin-bottom:2px}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightweight-charts/4.2.0/lightweight-charts.standalone.production.js"></script>
+<script src="config.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<script>
+// ---- CONFIG: edit these ----
+const API=(window.PV&&window.PV.api||'').replace(/\/$/,'');
+const CONFIG={title:'Primevestbinary',subtitle:'powered by',appId:'34NUD2BxWgggQlv957IJD'};
+const P={home:'M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10',cog:'M12 8a4 4 0 100 8 4 4 0 000-8zM12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2',bot:'M5 8h14v11H5zM12 4v4M9 13h.01M15 13h.01M9 16h6',bars:'M6 20V10M12 20V4M18 20v-7',sig:'M3 17l5-5 4 4 8-9',chart:'M4 4v16h16M8 14l3-3 3 2 4-5',calc:'M6 3h12v18H6zM9 7h6M9 12h.01M12 12h.01M15 12h.01M9 16h.01M12 16h.01M15 16h.01',crown:'M4 18h16M4 18L3 8l5 4 4-7 4 7 5-4-1 10',layers:'M12 3l9 5-9 5-9-5zM3 13l9 5 9-5',bolt:'M13 2L4 14h7l-1 8 9-12h-7z',rocket:'M5 19c0-3 2-4 3-5M14 5c3 0 5 2 5 5-2 3-5 5-8 6l-3-3c1-3 3-6 6-8zM9 15l-3 5 5-3',up:'M12 16V4M7 9l5-5 5 5M4 20h16',pen:'M4 20l1-4L17 4l3 3L8 19z',key:'M14 10a4 4 0 11-3 3l-7 7v-3h3v-3h3',menu:'M3 6h18M3 12h18M3 18h18',plus:'M12 5v14M5 12h14',arrow:'M5 12h14M13 6l6 6-6 6'};
+const ic=(k)=>`<svg viewBox="0 0 24 24"><path d="${P[k]}"/></svg>`;
+const TABS=[['dashboard','Dashboard','home'],['builder','Bot Builder','cog'],['free','Free Bots','bot'],['analysis','Analysis Tool','bars'],['signals','Signals','sig'],['charts','Charts','chart'],['risk','Risk Calculator','calc'],['center','Signal Center','bars'],['matches','Matches','crown'],['bulk','Bulk Trader','layers'],['speed','Speedbot','bolt'],['quick','QuickBot','rocket'],['dtrader','DTrader','sig']];
+const FEAT=[['cog','Bot Builder','Build bots visually'],['bot','Free Bots','Ready-made strategies'],['chart','Charts','Live market charts'],['bars','Analysis Tool','Read the market'],['calc','Risk Calculator','Size your stake'],['layers','Bulk Trader','Trade in volume']];
+const st={user:null,tab:'dashboard',sheet:false,msg:''};
+const brand=()=>`<div class="brand"><b>${CONFIG.title}</b><span>${CONFIG.subtitle} <i>deriv</i></span></div>`;
+function landing(){return `<header>${brand()}<button class="btn login sm" data-a="sheet">Login Now</button></header>${st.err?`<div class="risk" style="color:#d93025" role="alert">${st.err}</div>`:''}
+<section class="hero"><h1>Trade smarter with automated bots</h1><p>Build, load and run trading bots on Deriv, with charts, signals and risk tools in one place.</p>
+<div class="cta"><button class="btn login" data-a="sheet">${ic('key')} Login Now</button><button class="btn sign" data-a="signup">${ic('plus')} Sign up ${ic('arrow')}</button></div></section>
+<h2>Everything you need</h2><div class="grid">${FEAT.map(f=>`<div class="card">${ic(f[0])}<b>${f[1]}</b><small>${f[2]}</small></div>`).join('')}</div>
+<div class="risk"><b>Risk warning:</b> deriv products carry a high level of risk and you can lose more than you deposit. Only trade with money you can afford to lose. Start with a demo account.</div>`}
+function sheet(){return `<div class="sheetbg" data-a="bg"><div class="sheet" role="dialog" aria-label="Sign in"><h3>Sign in</h3><p>Use your Deriv account or an API token.</p>
+<button class="btn login" style="width:100%" data-a="oauth">Continue with Deriv</button><div class="or">or</div>
+<label for="t">Deriv API token</label><input id="t" type="password" autocomplete="off" placeholder="Paste your token"><div class="msg" id="m">${st.msg}</div>
+<button class="btn tok" style="width:100%" data-a="token">${ic('key')} Connect with token</button>
+<button class="link" data-a="preview">Preview the app without signing in</button></div></div>`}
+function shell(){const t=TABS.find(x=>x[0]===st.tab);
+ return `<header><button aria-label="Log out" title="Log out" data-a="logout" style="background:none;padding:4px">${ic('menu')}</button>${brand()}<label class="bal"><select aria-label="Account" data-sel>${st.user.accounts.map((a,i)=>`<option value="${i}" ${i===st.user.sel?'selected':''}>${a.type||'account'} ${a.id} · ${a.bal.toFixed(2)} ${a.cur}</option>`).join('')||'<option>No accounts</option>'}</select></label></header>
+<nav aria-label="Main">${TABS.map(x=>`<button class="${x[0]===st.tab?'on':''}" data-t="${x[0]}">${ic(x[2])}${x[1]}</button>`).join('')}</nav>
+<div class="page">${st.tab==='dashboard'?`<div class="hello">Hello ${cur().id} 👋</div><p class="quote">“In trading, the one who survives longest wins.”</p><h2 style="margin-top:0">Quick actions</h2>
+<div class="qa">${[['bot','Free Bots','free'],['pen','Bot Editor','builder'],['layers','Bulk Trader','bulk'],['up','Upload Bot','builder']].map(q=>`<div class="card" data-t="${q[2]}">${ic(q[0])}<b>${q[1]}</b></div>`).join('')}</div>`
+ :st.tab==='charts'?chartView():st.tab==='dtrader'?tradeView():st.tab==='speed'?speedView():st.tab==='builder'?builderView():st.tab==='free'?freeView():st.tab==='risk'?riskView():st.tab==='analysis'?anView():st.tab==='bulk'?bulkView():st.tab==='quick'?quickView():`<div class="soon">${ic(t[2])}<h3>${t[1]}</h3><p>This screen is built in a later step.</p></div>`}</div>
+<div class="dock"><span class="chip">Risk Disclaimer</span><div class="run">${ic('bolt')} Run</div><span style="color:var(--mut);font-size:14px">Bot is not running</span></div>`}
+function draw(){const a=document.getElementById('app');a.innerHTML=(st.user?shell():landing())+(st.sheet?sheet():'');
+ const on=a.querySelector('nav .on');if(on)on.scrollIntoView({inline:'center',block:'nearest'});(st.user&&st.tab==='charts')?startChart():stopChart();(st.user&&(st.tab==='dtrader'||st.tab==='speed'||st.tab==='builder'||st.tab==='bulk'||st.tab==='quick'))?startTrade():stopTrade();(st.user&&st.tab==='analysis')?startAn():stopAn()}
+document.addEventListener('click',e=>{const el=e.target.closest('[data-a],[data-t]');if(!el)return;
+ if(el.dataset.t){st.tab=el.dataset.t;draw();scrollTo(0,0);return}
+ const a=el.dataset.a;
+ if(a==='gr'){cs.gr=+el.dataset.g;draw()}
+ else if(a==='logout'){if(confirm('Log out?')){sessionStorage.removeItem('dt');st.user=null;st.err='';draw()}}
+ else startAuth(a==='signup').catch(e=>{st.err=e.message;draw()})});
+document.addEventListener('change',e=>{if(e.target.matches('[data-sel]')){st.user.sel=+e.target.value;draw()}else if(e.target.matches('[data-cs]')){cs.sym=e.target.value;draw()}});
+// ---- Deriv OAuth 2.0 (Authorization Code + PKCE). The code-for-token exchange happens in /api/token (server side). ----
+const AUTH='https://auth.deriv.com/oauth2/auth',REDIR=location.origin+'/callback';
+const b64=a=>btoa(String.fromCharCode(...new Uint8Array(a))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+const cur=()=>st.user.accounts[st.user.sel]||{id:'—',type:'',cur:'USD',bal:0};
+async function startAuth(signup){
+ const v=b64(crypto.getRandomValues(new Uint8Array(48))),ch=b64(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(v))),s=b64(crypto.getRandomValues(new Uint8Array(16)));
+ sessionStorage.setItem('pv',v);sessionStorage.setItem('ps',s);
+ const p=new URLSearchParams({response_type:'code',client_id:CONFIG.appId,redirect_uri:REDIR,scope:'trade',state:s,code_challenge:ch,code_challenge_method:'S256'});
+ if(signup)p.set('prompt','registration');location.href=AUTH+'?'+p}
+const rows=j=>Array.isArray(j)?j:(j&&(j.data||j.accounts))||[];
+async function loadAccounts(){
+ const t=JSON.parse(sessionStorage.getItem('dt')||'null');
+ if(!t||Date.now()>t.exp){sessionStorage.removeItem('dt');return false}
+ const r=await fetch(API+'/api/deriv',{headers:{Authorization:'Bearer '+t.at}});
+ if(r.status===401){sessionStorage.removeItem('dt');st.err='Session expired. Please log in again.';return false}
+ const j=await r.json();if(!r.ok)throw new Error(j.errors?.[0]?.message||'Could not load accounts');
+ const acc=rows(j).map(a=>({id:a.account_id||a.id||a.loginid||'',type:a.account_type||a.type||'',cur:a.currency||'USD',bal:Number(a.balance??0)}));
+ st.user={accounts:acc,sel:Math.max(0,acc.findIndex(a=>/demo/i.test(a.type)||/^VR/i.test(a.id)))};return true}
+async function boot(){
+ try{
+  if(location.pathname==='/callback'){
+   const q=new URLSearchParams(location.search),s=sessionStorage.getItem('ps'),v=sessionStorage.getItem('pv');history.replaceState(null,'','/');
+   if(q.get('error'))st.err='Login cancelled: '+(q.get('error_description')||q.get('error'));
+   else if(!q.get('code')||!s||q.get('state')!==s)st.err='Login could not be verified. Please try again.';
+   else{const r=await fetch(API+'/api/token',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code:q.get('code'),code_verifier:v,redirect_uri:REDIR})}),j=await r.json();
+    if(!r.ok||!j.access_token)st.err=j.error_description||j.error||'Login failed';else sessionStorage.setItem('dt',JSON.stringify({at:j.access_token,exp:Date.now()+(j.expires_in||3600)*1000-60000}))}
+   sessionStorage.removeItem('pv');sessionStorage.removeItem('ps')}
+  if(sessionStorage.getItem('dt'))await loadAccounts()
+ }catch(e){st.err=e.message}
+ draw()}
+// ---- Charts: live candles from Deriv's public WebSocket (no login needed) ----
+const SYMS=[['R_10','Volatility 10'],['R_25','Volatility 25'],['R_50','Volatility 50'],['R_75','Volatility 75'],['R_100','Volatility 100'],['1HZ10V','Volatility 10 (1s)'],['1HZ25V','Volatility 25 (1s)'],['1HZ50V','Volatility 50 (1s)'],['1HZ75V','Volatility 75 (1s)'],['1HZ100V','Volatility 100 (1s)'],['frxEURUSD','EUR/USD'],['frxGBPUSD','GBP/USD'],['frxUSDJPY','USD/JPY'],['frxAUDUSD','AUD/USD'],['frxXAUUSD','Gold/USD']];
+const GR=[['M1',60],['M5',300],['M15',900],['M30',1800],['H1',3600],['H4',14400],['D1',86400]];
+const cs={sym:'R_100',gr:60,ws:null,chart:null,ser:null,ping:0};
+const chartView=()=>`<div class="cbar"><select aria-label="Market" data-cs>${SYMS.map(x=>`<option value="${x[0]}" ${x[0]===cs.sym?'selected':''}>${x[1]}</option>`).join('')}</select>${GR.map(g=>`<button class="tf ${g[1]===cs.gr?'on':''}" data-a="gr" data-g="${g[1]}">${g[0]}</button>`).join('')}</div>
+<div class="lastpx" id="px">—</div><div id="ch" style="height:min(60vh,520px)"></div><p id="cst" style="color:var(--mut);font-size:13px">Connecting…</p>`;
+const setSt=t=>{const e=document.getElementById('cst');if(e)e.textContent=t};
+function stopChart(){clearInterval(cs.ping);if(cs.ws){cs.ws.onclose=null;cs.ws.onmessage=null;cs.ws.close();cs.ws=null}if(cs.chart){cs.chart.remove();cs.chart=null}}
+function startChart(){
+ stopChart();const el=document.getElementById('ch');if(!el)return;if(!window.LightweightCharts){setSt('Chart library failed to load.');return}
+ const css=getComputedStyle(document.documentElement),mut=css.getPropertyValue('--mut').trim(),ln=css.getPropertyValue('--line').trim();
+ cs.chart=LightweightCharts.createChart(el,{autoSize:true,layout:{background:{color:'transparent'},textColor:mut},grid:{vertLines:{color:ln},horzLines:{color:ln}},crosshair:{mode:LightweightCharts.CrosshairMode.Normal},timeScale:{timeVisible:true,borderColor:ln},rightPriceScale:{borderColor:ln}});
+ cs.ser=cs.chart.addCandlestickSeries({upColor:'#26a69a',downColor:'#ef5350',borderVisible:false,wickUpColor:'#26a69a',wickDownColor:'#ef5350'});
+ const ws=cs.ws=new WebSocket('wss://api.derivws.com/trading/v1/options/ws/public'),px=v=>{const e=document.getElementById('px');if(e)e.textContent=v};
+ ws.onopen=()=>{setSt('Loading…');ws.send(JSON.stringify({ticks_history:cs.sym,style:'candles',granularity:cs.gr,count:300,end:'latest',subscribe:1}));cs.ping=setInterval(()=>ws.readyState===1&&ws.send(JSON.stringify({ping:1})),30000)};
+ ws.onmessage=e=>{const m=JSON.parse(e.data),er=m.error||(m.errors&&m.errors[0]);if(er){setSt(er.message||'Request failed');return}
+  const c=o=>({time:+(o.epoch||o.open_time),open:+o.open,high:+o.high,low:+o.low,close:+o.close});
+  if(m.msg_type==='candles'&&m.candles){cs.ser.setData(m.candles.map(c));cs.chart.timeScale().fitContent();setSt('Live');px(m.candles.at(-1).close)}
+  else if(m.msg_type==='ohlc'&&m.ohlc){cs.ser.update({...c(m.ohlc),time:+m.ohlc.open_time});px(m.ohlc.close)}};
+ ws.onerror=()=>setSt('Connection problem.');ws.onclose=()=>setSt('Disconnected. Tap a timeframe to reconnect.');
+}
+// ---- DTrader: Rise/Fall and Even/Odd on your Deriv account (OTP WebSocket) ----
+const tr={sym:'R_100',kind:'rf',stake:'1',dur:'5',unit:'t',ws:null,prop:{},open:{},done:[],tm:0,ping:0,dt:0};
+const KINDS={rf:[['CALL','Rise'],['PUT','Fall']],eo:[['DIGITEVEN','Even'],['DIGITODD','Odd']]};
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const money=(v,c)=>Number(v||0).toFixed(2)+' '+(c||cur().cur);
+const isDemo=()=>{const a=cur();return /demo/i.test(a.type)||/^VR/i.test(a.id)};
+const opts=(l,v)=>l.map(x=>`<option value="${x[0]}" ${x[0]===v?'selected':''}>${x[1]}</option>`).join('');
+const tradeInner=()=>`<div class="card" style="margin:0"><label>Market</label><select data-tr="sym" aria-label="Market">${opts(SYMS,tr.sym)}</select>
+<div class="two"><div><label>Contract</label><select data-tr="kind">${opts([['rf','Rise / Fall'],['eo','Even / Odd']],tr.kind)}</select></div><div><label>Stake (${esc(cur().cur)})</label><input data-tr="stake" inputmode="decimal" value="${esc(tr.stake)}"></div></div>
+<div class="two"><div><label>Duration</label><input data-tr="dur" inputmode="numeric" value="${esc(tr.dur)}"></div><div><label>Unit</label><select data-tr="unit">${opts([['t','Ticks'],['m','Minutes']],tr.unit)}</select></div></div>
+<div class="two" style="margin-top:6px">${KINDS[tr.kind].map((x,i)=>`<button class="btn ${i?'sell':'buyb'}" data-buy="${i}"><span>${x[1]}</span><small id="pp${i}">…</small></button>`).join('')}</div><div id="tmsg" class="msg" role="status" style="margin-top:10px"></div></div>
+<h2>Open trades</h2><div id="tpos"></div>`;
+const tradeView=()=>`${isDemo()?'':'<div class="risk" style="color:#d93025;margin:0 0 10px" role="alert"><b>REAL account selected.</b> Trades here use real money.</div>'}<div id="tv">${tradeInner()}</div>`;
+const tmsg=t=>{const e=document.getElementById('tmsg');if(e)e.textContent=t};
+const send=o=>tr.ws&&tr.ws.readyState===1&&tr.ws.send(JSON.stringify(o));
+function setBal(v){const a=st.user.accounts[st.user.sel];if(!a)return;a.bal=v;const o=document.querySelector('[data-sel] option:checked');if(o)o.textContent=`${a.type||'account'} ${a.id} · ${v.toFixed(2)} ${a.cur}`}
+function stopTrade(){if(bk.run)bkEnd('Stopped tracking (you left the Bulk Trader tab). Trades already placed keep running on Deriv.');if(bb.on)bbStop('Stopped (you left the Bot Builder tab).');if(bot.on){bot.on=false;clearTimeout(bot.wd);bot.status='Stopped (you left the Speedbot tab).'}tr.tm++;clearInterval(tr.ping);clearTimeout(tr.dt);if(tr.ws){tr.ws.onclose=null;tr.ws.onmessage=null;tr.ws.close();tr.ws=null}tr.open={};tr.prop={}}
+async function startTrade(){
+ stopTrade();drawPos();botDraw();bbDraw();bkDraw();const t=JSON.parse(sessionStorage.getItem('dt')||'null'),my=tr.tm;
+ if(!t||!st.user.accounts.length){tmsg('No trading account found.');return}
+ tmsg('Connecting…');
+ try{const r=await fetch(API+'/api/otp',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+t.at},body:JSON.stringify({account_id:cur().id})}),j=await r.json();
+  if(!r.ok)throw new Error((j.errors&&j.errors[0]&&j.errors[0].message)||'Could not start a trading session');
+  const u=(j.data&&j.data.url)||j.url;if(!u)throw new Error('Deriv did not return a connection address');if(my!==tr.tm)return;
+  const ws=tr.ws=new WebSocket(u);
+  ws.onopen=()=>{tmsg('');botDraw();bbDraw();send({balance:1,subscribe:1});send({proposal_open_contract:1,subscribe:1});propose();tr.ping=setInterval(()=>send({ping:1}),30000)};
+  ws.onmessage=e=>onTrade(JSON.parse(e.data));
+  ws.onclose=()=>{if(my===tr.tm)tmsg('Disconnected. Switch tabs to reconnect.')};
+ }catch(e){if(my===tr.tm)tmsg(e.message)}}
+function propose(){clearTimeout(tr.dt);tr.dt=setTimeout(()=>{if(!tr.ws||st.tab!=='dtrader')return;send({forget_all:'proposal'});
+ const amount=parseFloat(tr.stake),d=parseInt(tr.dur);for(let i=0;i<2;i++){const e=document.getElementById('pp'+i);if(e)e.textContent='…'}
+ if(!(amount>0)||!(d>0))return;
+ KINDS[tr.kind].forEach((x,i)=>send({proposal:1,amount,basis:'stake',contract_type:x[0],currency:cur().cur,duration:d,duration_unit:tr.kind==='eo'?'t':tr.unit,underlying_symbol:tr.sym,subscribe:1,req_id:101+i}))},400)}
+function onTrade(m){const er=m.error||(m.errors&&m.errors[0]);botMsg(m,er);bbMsg(m,er);bkMsg(m,er);
+ if(er){if(m.req_id>=101&&m.req_id<=102){const e=document.getElementById('pp'+(m.req_id-101));if(e)e.textContent=er.message||'Unavailable'}else tmsg(er.message||'Request failed');return}
+ if(m.msg_type==='balance'&&m.balance)setBal(+m.balance.balance);
+ else if(m.msg_type==='proposal'&&m.proposal&&m.req_id){const e=document.getElementById('pp'+(m.req_id-101));if(e)e.textContent='Payout '+money(m.proposal.payout)}
+ else if(m.msg_type==='buy'&&m.buy)tmsg('Bought for '+money(m.buy.buy_price));
+ else if(m.msg_type==='sell')tmsg('Sold.');
+ else if(m.msg_type==='proposal_open_contract'&&m.proposal_open_contract&&m.proposal_open_contract.contract_id){const c=m.proposal_open_contract;
+  if(c.is_sold){delete tr.open[c.contract_id];tr.done=[c,...tr.done.filter(x=>x.contract_id!==c.contract_id)].slice(0,8)}else tr.open[c.contract_id]=c;drawPos()}}
+function drawPos(){const e=document.getElementById('tpos');if(!e)return;
+ const row=(c,done)=>`<div class="card" style="margin:0 0 8px;display:flex;justify-content:space-between;align-items:center"><div><b>${esc(c.display_name||c.underlying_symbol)}</b> ${esc(c.contract_type)}<div style="color:var(--mut);font-size:13px">Stake ${money(c.buy_price,c.currency)}</div></div><div style="text-align:right"><div style="color:${+c.profit>=0?'#26a69a':'#ef5350'};font-weight:700">${+c.profit>=0?'+':''}${money(c.profit,c.currency)}</div>${done?'<small style="color:var(--mut)">Closed</small>':c.is_valid_to_sell?`<button class="btn tok sm" data-sell="${esc(c.contract_id)}">Sell</button>`:''}</div></div>`;
+ const o=Object.values(tr.open);e.innerHTML=(o.map(c=>row(c)).join('')||'<p style="color:var(--mut)">No open trades.</p>')+(tr.done.length?'<h2>Closed this session</h2>'+tr.done.map(c=>row(c,1)).join(''):'')}
+function buy(i){const x=KINDS[tr.kind][i],amount=parseFloat(tr.stake),d=parseInt(tr.dur);
+ if(!(amount>0)||!(d>0)){tmsg('Enter a valid stake and duration.');return}
+ if(!tr.ws||tr.ws.readyState!==1){tmsg('Not connected yet.');return}
+ if(!isDemo()&&!confirm(`REAL account. Buy ${x[1]} for ${amount} ${cur().cur}?`))return;
+ tmsg('Placing trade…');
+ send({buy:1,price:amount,parameters:{amount,basis:'stake',contract_type:x[0],currency:cur().cur,duration:d,duration_unit:tr.kind==='eo'?'t':tr.unit,underlying_symbol:tr.sym}})}
+document.addEventListener('input',e=>{const k=e.target.dataset&&e.target.dataset.tr;if(!k)return;tr[k]=e.target.value;
+ if(k==='kind'){document.getElementById('tv').innerHTML=tradeInner();drawPos()}propose()});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-buy],[data-sell]');if(!b)return;
+ if(b.dataset.buy!==undefined)buy(+b.dataset.buy);else send({sell:+b.dataset.sell,price:0})});
+// ---- Speedbot: automated Rise/Fall or Even/Odd trades with martingale, take profit and stop loss (DEMO ONLY) ----
+const bot={on:false,p:{sym:'1HZ100V',side:'rise',stake:'1',mult:'2',maxs:'16',tp:'5',sl:'10',max:'30',ticks:'5'},pnl:0,n:0,w:0,l:0,streak:0,cid:null,wd:0,status:'',log:[],stake:0,type:''};
+const SIDES=[['rise','Rise'],['fall','Fall'],['even','Even'],['odd','Odd'],['altrf','Alternate Rise/Fall'],['alteo','Alternate Even/Odd']];
+const fld=(k,l)=>`<div><label>${l}</label><input data-bp="${k}" inputmode="decimal" value="${esc(bot.p[k])}"></div>`;
+const speedView=()=>`<div class="risk" style="margin:0 0 10px"><b>Demo accounts only.</b> No strategy guarantees profit. Martingale raises your stake after each loss, so losses can grow quickly. The stop loss is a hard limit on this session.</div>
+<div class="card" style="margin:0"><label>Market</label><select data-bp="sym">${opts(SYMS,bot.p.sym)}</select><label>Trade</label><select data-bp="side">${opts(SIDES,bot.p.side)}</select>
+<div class="two">${fld('stake','Stake')}${fld('mult','Martingale ×')}</div><div class="two">${fld('maxs','Max stake')}${fld('ticks','Ticks (1–10)')}</div><div class="two">${fld('tp','Take profit')}${fld('sl','Stop loss')}</div>${fld('max','Max trades')}
+<button class="btn login" id="bgo" data-bot="go" style="width:100%;margin-top:12px">${bot.on?'Stop':'Start Speedbot'}</button></div><div id="bout"></div>`;
+function botDraw(){const e=document.getElementById('bout');if(!e)return;const g=document.getElementById('bgo');if(g)g.textContent=bot.on?'Stop':'Start Speedbot';
+ e.innerHTML=`<p style="color:var(--mut);margin:10px 2px" role="status">${esc(bot.status||(tr.ws?'Ready.':'Connecting…'))}</p>
+<div class="grid"><div class="card"><small>Profit / loss</small><b style="display:block;color:${bot.pnl>=0?'#26a69a':'#ef5350'}">${bot.pnl>=0?'+':''}${bot.pnl.toFixed(2)} ${esc(cur().cur)}</b></div><div class="card"><small>Trades</small><b style="display:block">${bot.n} (${bot.w}W / ${bot.l}L)</b></div></div>
+${bot.log.map(x=>`<div class="row" style="padding:8px 2px"><span>#${x.n} ${esc(x.t)} · stake ${x.s.toFixed(2)}</span><b style="color:${x.p>=0?'#26a69a':'#ef5350'}">${x.p>=0?'+':''}${x.p.toFixed(2)}</b></div>`).join('')}`}
+function botStop(msg){bot.on=false;clearTimeout(bot.wd);bot.status=msg;botDraw()}
+function botGo(){
+ if(bot.on){botStop('Stopped by you.');return}
+ const p=bot.p,n=k=>parseFloat(p[k]),say=t=>{bot.status=t;botDraw()};
+ if(!isDemo())return say('Speedbot runs on demo accounts only. Switch to your demo account in the header.');
+ if(!tr.ws||tr.ws.readyState!==1)return say('Not connected yet. Wait a moment and try again.');
+ if(!(n('stake')>0&&n('mult')>=1&&n('mult')<=10&&n('maxs')>=n('stake')&&n('tp')>0&&n('sl')>0&&n('max')>=1&&n('max')<=500&&n('ticks')>=1&&n('ticks')<=10))return say('Check your settings: stake above 0, martingale 1–10, max stake not below stake, ticks 1–10, max trades 1–500.');
+ Object.assign(bot,{on:true,pnl:0,n:0,w:0,l:0,streak:0,cid:null,log:[],status:'Running…'});botDraw();botNext()}
+function botNext(){if(!bot.on)return;const p=bot.p,n=k=>parseFloat(p[k]);
+ if(bot.pnl>=n('tp'))return botStop('Take profit reached.');if(bot.pnl<=-n('sl'))return botStop('Stop loss reached.');if(bot.n>=n('max'))return botStop('Max trades reached.');
+ let s=Math.min(n('stake')*Math.pow(n('mult'),bot.streak),n('maxs'),n('sl')+bot.pnl);s=Math.floor(s*100)/100;
+ if(s<0.35)return botStop('Not enough loss allowance left for another trade.');
+ if(s>cur().bal)return botStop('Not enough balance.');
+ const k={rise:'CALL',fall:'PUT',even:'DIGITEVEN',odd:'DIGITODD'}[p.side]||(p.side==='altrf'?['CALL','PUT'][bot.n%2]:['DIGITEVEN','DIGITODD'][bot.n%2]);
+ bot.type=k;bot.stake=s;bot.cid=null;
+ send({buy:1,price:s,req_id:201,parameters:{amount:s,basis:'stake',contract_type:k,currency:cur().cur,duration:parseInt(p.ticks),duration_unit:'t',underlying_symbol:p.sym}});
+ clearTimeout(bot.wd);bot.wd=setTimeout(()=>botStop('No result received. Check your connection.'),60000)}
+function botMsg(m,er){if(!bot.on)return;
+ if(er&&m.req_id===201){botStop('Trade rejected: '+(er.message||'error'));return}
+ if(m.msg_type==='buy'&&m.req_id===201&&m.buy){bot.cid=m.buy.contract_id;send({proposal_open_contract:1,contract_id:bot.cid,subscribe:1});return}
+ const c=m.msg_type==='proposal_open_contract'&&m.proposal_open_contract;
+ if(c&&bot.cid&&c.contract_id===bot.cid&&c.is_sold){const pr=+c.profit||0;bot.cid=null;clearTimeout(bot.wd);bot.n++;bot.pnl+=pr;if(pr>0){bot.w++;bot.streak=0}else{bot.l++;bot.streak++}
+  bot.log=[{n:bot.n,t:bot.type.replace('DIGIT','').replace('CALL','Rise').replace('PUT','Fall'),s:bot.stake,p:pr},...bot.log].slice(0,12);botDraw();setTimeout(botNext,500)}}
+document.addEventListener('input',e=>{const k=e.target.dataset&&e.target.dataset.bp;if(k)bot.p[k]=e.target.value});
+document.addEventListener('click',e=>{if(e.target.closest('[data-bot]'))botGo()});
+// ---- Bot Builder: rule-based bots you can save, export and import (DEMO ONLY) ----
+const BB0={name:'My bot',sym:'1HZ100V',side:'even',bar:'5',ticks:'1',stake:'1',entry:'always',dRule:'even',dN:'5',sN:'3',sDir:'up',lMult:'2',flip:'0',wMode:'reset',wMult:'1',maxs:'16',tp:'5',sl:'10',max:'30'};
+const bb={on:false,c:{...BB0},wait:false,cid:null,wd:0,tw:null,q:[],pnl:0,n:0,w:0,l:0,stake:0,cs:0,side:'',status:'',log:[]};
+const BBSIDES=[['rise','Rise'],['fall','Fall'],['even','Even'],['odd','Odd'],['over','Over (barrier)'],['under','Under (barrier)']];
+const FLIP={rise:'fall',fall:'rise',even:'odd',odd:'even',over:'under',under:'over'};
+const CT={rise:'CALL',fall:'PUT',even:'DIGITEVEN',odd:'DIGITODD',over:'DIGITOVER',under:'DIGITUNDER'};
+const ENUM={side:Object.keys(CT),entry:['always','digit','streak'],dRule:['even','odd','over','under'],sDir:['up','down'],flip:['0','1'],wMode:['reset','keep','mult'],sym:SYMS.map(x=>x[0])};
+const bf=(k,l)=>`<div><label>${l}</label><input data-bb="${k}" inputmode="decimal" value="${esc(bb.c[k])}"></div>`;
+const bs=(k,l,list)=>`<div><label>${l}</label><select data-bb="${k}">${opts(list,bb.c[k])}</select></div>`;
+const savedBots=()=>{try{return JSON.parse(localStorage.getItem('pvbots')||'{}')}catch(e){return{}}};
+const savedOpts=()=>Object.keys(savedBots()).map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join('')||'<option value="">No saved bots</option>';
+function bbForm(){const c=bb.c,ou=['over','under'];
+ return `<div class="card" style="margin:0 0 10px"><b>1. Trade</b>${bs('sym','Market',SYMS)}<div class="two">${bs('side','Contract',BBSIDES)}${bf('ticks','Ticks (1–10)')}</div><div class="two">${bf('stake','Starting stake')}${ou.includes(c.side)?bf('bar','Barrier digit (0–9)'):''}</div></div>
+<div class="card" style="margin:0 0 10px"><b>2. When to trade</b>${bs('entry','Entry',[['always','Immediately, every time'],['digit','When the last digit is…'],['streak','After N ticks in a row']])}
+${c.entry==='digit'?`<div class="two">${bs('dRule','Last digit is',[['even','Even'],['odd','Odd'],['over','Over'],['under','Under']])}${ou.includes(c.dRule)?bf('dN','Digit (0–9)'):''}</div>`:''}
+${c.entry==='streak'?`<div class="two">${bf('sN','Ticks in a row (2–10)')}${bs('sDir','Moving',[['up','Up'],['down','Down']])}</div>`:''}</div>
+<div class="card" style="margin:0 0 10px"><b>3. After a result</b><div class="two">${bf('lMult','Loss: stake ×')}${bs('flip','Loss: switch side',[['0','No'],['1','Yes']])}</div><div class="two">${bs('wMode','Win: stake',[['reset','Back to start'],['keep','Keep'],['mult','Multiply']])}${c.wMode==='mult'?bf('wMult','Win: stake ×'):''}</div></div>
+<div class="card" style="margin:0 0 10px"><b>4. Limits</b><div class="two">${bf('tp','Take profit')}${bf('sl','Stop loss')}</div><div class="two">${bf('maxs','Max stake')}${bf('max','Max trades')}</div></div>`}
+const builderView=()=>`<div class="risk" style="margin:0 0 10px"><b>Demo accounts only.</b> This builder follows the simple rules you set. It can’t predict the market and no setting guarantees profit.</div><div id="bbf">${bbForm()}</div>
+<button class="btn login" id="bbgo" data-bbact="run" style="width:100%">${bb.on?'Stop':'Run bot'}</button><div id="bbo"></div>
+<div class="card" style="margin-top:14px"><b>My bots</b><label>Name</label><input data-bb="name" maxlength="40" value="${esc(bb.c.name)}">
+<div class="two"><button class="btn tok" data-bbact="save">Save</button><button class="btn tok" data-bbact="export">Export</button></div>
+<label style="margin-top:10px">Saved bots</label><select id="bbsel">${savedOpts()}</select><div class="two"><button class="btn tok" data-bbact="load">Load</button><button class="btn tok" data-bbact="del">Delete</button></div>
+<label style="margin-top:10px">Export / import (JSON)</label><textarea id="bbx" rows="4" spellcheck="false"></textarea><button class="btn tok" data-bbact="import" style="width:100%">Import</button></div>`;
+function bbDraw(){const e=document.getElementById('bbo');if(!e)return;const g=document.getElementById('bbgo');if(g)g.textContent=bb.on?'Stop':'Run bot';
+ e.innerHTML=`<p style="color:var(--mut);margin:10px 2px" role="status">${esc(bb.status||(tr.ws?'Ready.':'Connecting…'))}</p>
+<div class="grid"><div class="card"><small>Profit / loss</small><b style="color:${bb.pnl>=0?'#26a69a':'#ef5350'}">${bb.pnl>=0?'+':''}${bb.pnl.toFixed(2)} ${esc(cur().cur)}</b></div><div class="card"><small>Trades</small><b>${bb.n} (${bb.w}W / ${bb.l}L)</b></div></div>
+${bb.log.map(x=>`<div class="row" style="padding:8px 2px"><span>#${x.n} ${esc(x.t)} · stake ${x.s.toFixed(2)}</span><b style="color:${x.p>=0?'#26a69a':'#ef5350'}">${x.p>=0?'+':''}${x.p.toFixed(2)}</b></div>`).join('')}`}
+const bbSay=t=>{bb.status=t;bbDraw()};
+function bbStop(msg){bb.on=false;bb.wait=false;clearTimeout(bb.wd);if(bb.tw){bb.tw.onmessage=null;bb.tw.onclose=null;bb.tw.close();bb.tw=null}bb.status=msg;bbDraw()}
+function bbSet(o){const c={...BB0};for(const k of Object.keys(BB0)){if(!(k in o))continue;const v=String(o[k]).slice(0,40);
+ if(k==='name'||(ENUM[k]?ENUM[k].includes(v):isFinite(parseFloat(v))))c[k]=v}
+ bb.c=c;const f=document.getElementById('bbf');if(f)f.innerHTML=bbForm();const n=document.querySelector('[data-bb="name"]');if(n)n.value=c.name}
+function bbGo(){const c=bb.c,n=k=>parseFloat(c[k]);
+ if(!isDemo())return bbSay('Bots run on demo accounts only. Switch to your demo account in the header.');
+ if(!tr.ws||tr.ws.readyState!==1)return bbSay('Not connected yet. Wait a moment and try again.');
+ const ok=n('stake')>0&&n('ticks')>=1&&n('ticks')<=10&&n('lMult')>=1&&n('lMult')<=10&&(c.wMode!=='mult'||(n('wMult')>=1&&n('wMult')<=10))&&n('maxs')>=n('stake')&&n('tp')>0&&n('sl')>0&&n('max')>=1&&n('max')<=500&&(!['over','under'].includes(c.side)||(n('bar')>=0&&n('bar')<=9))&&(c.entry!=='streak'||(n('sN')>=2&&n('sN')<=10))&&(c.dRule!=='over'&&c.dRule!=='under'||c.entry!=='digit'||(n('dN')>=0&&n('dN')<=9));
+ if(!ok)return bbSay('Check your settings: stake above 0, ticks 1–10, multipliers 1–10, max stake not below stake, limits above 0, digits 0–9.');
+ Object.assign(bb,{on:true,wait:true,cid:null,q:[],pnl:0,n:0,w:0,l:0,stake:n('stake'),side:c.side,log:[],status:c.entry==='always'?'Running…':'Waiting for the entry condition…'});
+ if(c.entry!=='always'){const w=bb.tw=new WebSocket('wss://api.derivws.com/trading/v1/options/ws/public');
+  w.onopen=()=>w.send(JSON.stringify({ticks:c.sym,subscribe:1}));
+  w.onmessage=ev=>{const m=JSON.parse(ev.data);if(m.msg_type==='tick'&&m.tick){const ps=m.tick.pip_size??2,q=+m.tick.quote;bb.q=[...bb.q,{q,d:+q.toFixed(ps).slice(-1)}].slice(-12);bbTry()}};
+  w.onclose=()=>{if(bb.on)bbStop('Tick feed disconnected.')}}
+ bbDraw();bbTry()}
+const bbLimit=()=>{const c=bb.c;return bb.pnl>=+c.tp?'Take profit reached.':bb.pnl<=-c.sl?'Stop loss reached.':bb.n>=+c.max?'Max trades reached.':''};
+function bbTry(){if(!bb.on||!bb.wait)return;const c=bb.c;
+ if(c.entry!=='always'){const q=bb.q;if(!q.length)return;
+  if(c.entry==='digit'){const d=q[q.length-1].d,r=c.dRule,n=+c.dN;if(!(r==='even'?d%2===0:r==='odd'?d%2===1:r==='over'?d>n:d<n))return}
+  else{const n=+c.sN;if(q.length<=n)return;const t=q.slice(-n-1);if(!t.every((x,i)=>i===0||(c.sDir==='up'?x.q>t[i-1].q:x.q<t[i-1].q)))return}}
+ bb.wait=false;bbPlace()}
+function bbPlace(){const c=bb.c,n=k=>parseFloat(c[k]),lim=bbLimit();if(lim)return bbStop(lim);
+ const s=Math.floor(Math.min(bb.stake,n('maxs'),n('sl')+bb.pnl)*100)/100;
+ if(s<0.35)return bbStop('Not enough loss allowance left for another trade.');if(s>cur().bal)return bbStop('Not enough balance.');
+ bb.cs=s;const par={amount:s,basis:'stake',contract_type:CT[bb.side],currency:cur().cur,duration:parseInt(c.ticks),duration_unit:'t',underlying_symbol:c.sym};
+ if(['over','under'].includes(bb.side))par.barrier=String(parseInt(c.bar));
+ bb.q=[];send({buy:1,price:s,req_id:301,parameters:par});
+ clearTimeout(bb.wd);bb.wd=setTimeout(()=>bbStop('No result received. Check your connection.'),60000)}
+function bbMsg(m,er){if(!bb.on)return;
+ if(er&&m.req_id===301)return bbStop('Trade rejected: '+(er.message||'error'));
+ if(m.msg_type==='buy'&&m.req_id===301&&m.buy){bb.cid=m.buy.contract_id;send({proposal_open_contract:1,contract_id:bb.cid,subscribe:1});return}
+ const o=m.msg_type==='proposal_open_contract'&&m.proposal_open_contract;
+ if(o&&bb.cid&&o.contract_id===bb.cid&&o.is_sold){const pr=+o.profit||0,c=bb.c;bb.cid=null;clearTimeout(bb.wd);bb.n++;bb.pnl+=pr;
+  bb.log=[{n:bb.n,t:bb.side,s:bb.cs,p:pr},...bb.log].slice(0,12);
+  if(pr>0){bb.w++;bb.stake=c.wMode==='reset'?+c.stake:c.wMode==='mult'?bb.cs*+c.wMult:bb.cs}else{bb.l++;bb.stake=bb.cs*+c.lMult;if(c.flip==='1')bb.side=FLIP[bb.side]}
+  const lim=bbLimit();if(lim)return bbStop(lim);
+  bb.status=c.entry==='always'?'Running…':'Waiting for the entry condition…';bbDraw();bb.wait=true;setTimeout(bbTry,500)}}
+document.addEventListener('input',e=>{const k=e.target.dataset&&e.target.dataset.bb;if(!k)return;bb.c[k]=e.target.value;
+ if(['entry','side','dRule','wMode'].includes(k))document.getElementById('bbf').innerHTML=bbForm()});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-bbact]');if(!b)return;const a=b.dataset.bbact,x=document.getElementById('bbx'),sel=document.getElementById('bbsel');
+ if(a==='run'){bb.on?bbStop('Stopped by you.'):bbGo()}
+ else if(a==='save'){const n=(bb.c.name||'').trim().slice(0,40);if(!n)return bbSay('Give your bot a name first.');
+  const all=savedBots();all[n]={...bb.c,name:n};try{localStorage.setItem('pvbots',JSON.stringify(all))}catch(er){return bbSay('This browser blocked saving.')}sel.innerHTML=savedOpts();sel.value=n;bbSay('Saved “'+n+'”.')}
+ else if(a==='load'){const o=savedBots()[sel.value];if(o){bbSet(o);bbSay('Loaded “'+sel.value+'”.')}}
+ else if(a==='del'){const all=savedBots();if(sel.value in all&&confirm('Delete “'+sel.value+'”?')){delete all[sel.value];localStorage.setItem('pvbots',JSON.stringify(all));sel.innerHTML=savedOpts();bbSay('Deleted.')}}
+ else if(a==='export'){x.value=JSON.stringify(bb.c,null,1)}
+ else if(a==='import'){try{const o=JSON.parse(x.value);if(!o||typeof o!=='object')throw 0;bbSet(o);bbSay('Imported. Review the settings before running.')}catch(er){bbSay('That isn’t a valid bot.')}}});
+// ---- Free Bots: ready-made setups that open in the Bot Builder ----
+const FREE=[
+ {n:'Flat Even',d:'Trades Even every time with the same stake. No martingale, so losses stay small and steady.',c:{side:'even',ticks:'1',lMult:'1',tp:'5',sl:'5',max:'50'}},
+ {n:'Even/Odd Switch',d:'Starts on Even and switches to Odd after every loss, doubling the stake up to a small cap.',c:{side:'even',ticks:'1',flip:'1',lMult:'2',maxs:'8',tp:'4',sl:'10',max:'30'}},
+ {n:'Rise After Dip',d:'Waits for 3 down ticks in a row, then trades Rise for 5 ticks.',c:{side:'rise',ticks:'5',entry:'streak',sN:'3',sDir:'down',lMult:'2',maxs:'8',tp:'5',sl:'10',max:'20'}},
+ {n:'Fall After Run',d:'Waits for 3 up ticks in a row, then trades Fall for 5 ticks.',c:{side:'fall',ticks:'5',entry:'streak',sN:'3',sDir:'up',lMult:'2',maxs:'8',tp:'5',sl:'10',max:'20'}},
+ {n:'Over 2 Steady',d:'Trades Over 2 every time, so it wins on any last digit above 2. Raises the stake a little after a loss.',c:{side:'over',bar:'2',ticks:'1',lMult:'1.5',maxs:'8',tp:'3',sl:'10',max:'40'}},
+ {n:'Under 7 Waiter',d:'Waits for a last digit above 7, then trades Under 7.',c:{side:'under',bar:'7',ticks:'1',entry:'digit',dRule:'over',dN:'7',lMult:'1.5',maxs:'8',tp:'3',sl:'10',max:'40'}},
+ {n:'Rise/Fall Switch',d:'Trades Rise and flips to Fall after each loss, with a doubling stake and a low cap.',c:{side:'rise',ticks:'5',flip:'1',lMult:'2',maxs:'8',tp:'4',sl:'10',max:'30'}},
+ {n:'Quick Ten',d:'A short session: at most 10 Rise trades with a flat stake and tight limits.',c:{side:'rise',ticks:'5',lMult:'1',tp:'2',sl:'4',max:'10'}}
+].map(b=>({...b,c:{...b.c,name:b.n,sym:'1HZ100V'}}));
+const entryText=c=>c.entry==='digit'?`when last digit is ${c.dRule}${['over','under'].includes(c.dRule)?' '+c.dN:''}`:c.entry==='streak'?`after ${c.sN} ticks ${c.sDir}`:'every time';
+const riskOf=c=>+c.lMult<=1?'Low risk':+c.lMult<=1.5?'Medium risk':'High risk';
+const freeView=()=>`<div class="risk" style="margin:0 0 10px">These are example setups, not tips. Loading one opens it in the Bot Builder where you can change anything before running it. Demo accounts only.</div>
+${FREE.map((b,i)=>{const c={...BB0,...b.c};return `<div class="card" style="margin:0 0 10px"><b style="font-size:18px;margin:0">🤖 ${esc(b.n)}</b><p style="color:var(--mut);margin:6px 0 0">${esc(b.d)}</p>
+<span class="tag">${esc(BBSIDES.find(x=>x[0]===c.side)[1].split(' ')[0])}${['over','under'].includes(c.side)?' '+esc(c.bar):''}</span><span class="tag">${esc(entryText(c))}</span><span class="tag">${riskOf(c)}</span>
+<button class="btn gbtn" data-load="${i}">LOAD BOT</button></div>`}).join('')}`;
+document.addEventListener('click',e=>{const b=e.target.closest('[data-load]');if(!b)return;const f=FREE[+b.dataset.load];if(!f)return;
+ bbSet(f.c);bb.status='';st.tab='builder';draw();scrollTo(0,0)});
+// ---- Risk Calculator (no Deriv connection needed) ----
+const rc={bal:'',stake:'1',pay:'85',win:'50',mult:'2',n:'6',risk:'2'};
+const rcf=(k,l)=>`<div><label>${l}</label><input data-rc="${k}" inputmode="decimal" value="${esc(rc[k])}"></div>`;
+function rcOut(){const b=parseFloat(rc.bal),s=parseFloat(rc.stake),p=parseFloat(rc.pay)/100,w=parseFloat(rc.win)/100,m=parseFloat(rc.mult),n=parseInt(rc.n),r=parseFloat(rc.risk)/100,u=esc(cur().cur);
+ if(!(b>0&&s>0&&p>0&&w>=0&&w<=1&&m>=1&&n>=1&&n<=15&&r>0&&r<=1))return '<p style="color:var(--mut)">Fill in every field with valid numbers: win rate 0–100%, martingale 1 or more, losses 1–15.</p>';
+ const be=1/(1+p),ev=(w*p-(1-w))*s;let k=0,c2=0,x=s;while(k<60){c2+=x;if(c2>b)break;k++;x*=m}
+ let rows='',cum=0,stk=s;for(let i=1;i<=n;i++){cum+=stk;const pc=cum/b*100;rows+=`<tr><td>${i}</td><td>${stk.toFixed(2)}</td><td>${cum.toFixed(2)}</td><td style="color:${pc>=100?'#ef5350':pc>=50?'#f5a623':'inherit'}">${pc.toFixed(0)}%</td></tr>`;stk*=m}
+ const st1=(l,v,c)=>`<div class="card stat" style="margin:0"><small>${l}</small><b${c?` style="color:${c}"`:''}>${v}</b></div>`;
+ return `<div class="grid" style="padding:0;margin-bottom:10px">${st1('Max stake at your risk %',(b*r).toFixed(2)+' '+u,s>b*r?'#f5a623':'')}${st1('Break-even win rate',(be*100).toFixed(1)+'%',w<be?'#ef5350':'')}
+${st1('Expected per trade',(ev>=0?'+':'')+ev.toFixed(2)+' '+u,ev>=0?'#26a69a':'#ef5350')}${st1('Per 100 trades',(ev>=0?'+':'')+(ev*100).toFixed(0)+' '+u,ev>=0?'#26a69a':'#ef5350')}
+${st1('Losses in a row you can cover',k>=60?'60+':String(k))}${st1('Chance of '+(k+1)+' losses in a row',(Math.pow(1-w,k+1)*100).toFixed(2)+'%')}</div>
+${s>b*r?`<p style="color:#f5a623;margin:0 0 10px">Your stake is above your risk limit of ${(b*r).toFixed(2)} ${u}.</p>`:''}
+${w<be?'<p style="color:#ef5350;margin:0 0 10px">At this win rate the expected result is negative. Martingale changes the size of losses, not the odds.</p>':''}
+<div class="card" style="margin:0"><b>If you keep losing</b><div style="overflow-x:auto"><table class="rct"><tr><th>Loss #</th><th>Stake</th><th>Total lost</th><th>% of balance</th></tr>${rows}</table></div></div>`}
+const riskView=()=>{if(rc.bal==='')rc.bal=String(Math.round(cur().bal*100)/100||1000);
+ return `<div class="card" style="margin:0 0 10px"><b>Your numbers</b><div class="two">${rcf('bal','Balance ('+esc(cur().cur)+')')}${rcf('risk','Max risk per trade %')}</div><div class="two">${rcf('stake','Stake')}${rcf('pay','Payout % (profit on a win)')}</div><div class="two">${rcf('win','Your win rate %')}${rcf('mult','Martingale ×')}</div>${rcf('n','Losses to show (1–15)')}</div>
+<div id="rco">${rcOut()}</div><p style="color:var(--mut);font-size:13px">Your win rate is an assumption, not a forecast. Real results vary, and a streak of losses can happen at any time.</p>`};
+document.addEventListener('input',e=>{const k=e.target.dataset&&e.target.dataset.rc;if(!k)return;rc[k]=e.target.value;const o=document.getElementById('rco');if(o)o.innerHTML=rcOut()});
+// ---- Analysis Tool: live statistics from Deriv ticks (public feed) ----
+const an={sym:'1HZ100V',n:'1000',thr:'4',ws:null,p:[],pip:2,ping:0,last:0};
+const anView=()=>`<div class="cbar"><select data-an="sym" aria-label="Market">${opts(SYMS,an.sym)}</select><select data-an="n" aria-label="Sample size">${opts([['100','Last 100'],['500','Last 500'],['1000','Last 1000'],['5000','Last 5000']],an.n)}</select><select data-an="thr" aria-label="Over/Under digit">${[0,1,2,3,4,5,6,7,8,9].map(d=>`<option value="${d}" ${String(d)===an.thr?'selected':''}>Over/Under ${d}</option>`).join('')}</select></div>
+<div id="ano"><p style="color:var(--mut)">Loading…</p></div><p style="color:var(--mut);font-size:13px">These figures describe the ticks that already happened. They do not predict the next tick, and a digit that has been rare can stay rare or not.</p>`;
+function stopAn(){clearInterval(an.ping);if(an.ws){an.ws.onmessage=null;an.ws.onclose=null;an.ws.close();an.ws=null}}
+function startAn(){stopAn();an.p=[];anDraw('Loading…');
+ const ws=an.ws=new WebSocket('wss://api.derivws.com/trading/v1/options/ws/public');
+ ws.onopen=()=>{ws.send(JSON.stringify({ticks_history:an.sym,end:'latest',count:+an.n,style:'ticks',subscribe:1}));an.ping=setInterval(()=>ws.readyState===1&&ws.send(JSON.stringify({ping:1})),30000)};
+ ws.onmessage=e=>{const m=JSON.parse(e.data),er=m.error||(m.errors&&m.errors[0]);if(er){anDraw(er.message||'Request failed');return}
+  if(m.msg_type==='history'&&m.history){an.p=m.history.prices.map(Number);an.pip=m.pip_size??(Math.max(...an.p.slice(-50).map(x=>(String(x).split('.')[1]||'').length))||2);anDraw()}
+  else if(m.msg_type==='tick'&&m.tick&&an.p.length){an.p.push(+m.tick.quote);if(m.tick.pip_size!=null)an.pip=m.tick.pip_size;if(an.p.length>+an.n)an.p.shift();anDraw()}};
+ ws.onclose=()=>anDraw('Disconnected. Change the market to reconnect.')}
+function anDraw(msg){const o=document.getElementById('ano');if(!o)return;
+ if(!msg){const t=Date.now();if(t-an.last<400)return;an.last=t}
+ if(msg||!an.p.length){o.innerHTML=`<p style="color:var(--mut)" role="status">${esc(msg||'Loading…')}</p>`;return}
+ const p=an.p,t=+an.thr,d=p.map(x=>+x.toFixed(an.pip).slice(-1)),N=d.length,cnt=Array(10).fill(0);d.forEach(x=>cnt[x]++);
+ const mx=Math.max(...cnt),mn=Math.min(...cnt),pc=(x,n)=>n?(x/n*100).toFixed(1)+'%':'—';
+ const ev=d.filter(x=>x%2===0).length,ov=d.filter(x=>x>t).length,un=d.filter(x=>x<t).length;
+ let up=0,dn=0;for(let i=1;i<p.length;i++){if(p[i]>p[i-1])up++;else if(p[i]<p[i-1])dn++}
+ let run=1;for(let i=N-1;i>0&&d[i]%2===d[i-1]%2;i--)run++;
+ let mv=1;const dir=i=>Math.sign(p[i]-p[i-1]);for(let i=p.length-1;i>1&&dir(i)===dir(i-1)&&dir(i)!==0;i--)mv++;
+ const lastDir=p.length>1?dir(p.length-1):0,card=(l,v)=>`<div class="card stat" style="margin:0"><small>${l}</small><b>${v}</b></div>`;
+ o.innerHTML=`<div class="card" style="margin:0 0 10px"><b>Last digit (${N} ticks)</b>${cnt.map((c,i)=>`<div class="drow"><span>${i}</span><div><div class="bar" style="width:${mx?c/mx*100:0}%;background:${c===mx?'#26a69a':c===mn?'#ef5350':'var(--act)'}"></div></div><span style="text-align:right;font-variant-numeric:tabular-nums">${pc(c,N)}</span></div>`).join('')}<small style="color:var(--mut)">An even spread would be 10% each. Green is highest, red is lowest.</small></div>
+<div class="grid" style="padding:0;margin-bottom:10px">${card('Even / Odd',pc(ev,N)+' / '+pc(N-ev,N))}${card('Over '+t+' / Under '+t,pc(ov,N)+' / '+pc(un,N))}${card('Rise / Fall ticks',pc(up,up+dn)+' / '+pc(dn,up+dn))}${card('Current runs',`${d[N-1]%2===0?'Even':'Odd'} ×${run}${lastDir?' · '+(lastDir>0?'Up':'Down')+' ×'+mv:''}`)}</div>
+<div class="card" style="margin:0"><b>Last 24 digits</b>${d.slice(-24).map(x=>`<span class="dch ${x%2?'o':'e'}">${x}</span>`).join('')}<small style="display:block;color:var(--mut)">Blue-green is even, orange is odd. Newest is last.</small></div>`}
+document.addEventListener('input',e=>{const k=e.target.dataset&&e.target.dataset.an;if(!k)return;an[k]=e.target.value;if(k==='thr'){an.last=0;anDraw()}else startAn()});
+// ---- Bulk Trader: several identical trades at the same moment (DEMO ONLY) ----
+const bk={p:{sym:'1HZ100V',side:'even',stake:'1',ticks:'1',n:'3',bar:'5'},run:false,ids:{},fail:0,done:0,total:0,pnl:0,rows:[],status:'',wd:0};
+const bkf=(k,l)=>`<div><label>${l}</label><input data-bk="${k}" inputmode="decimal" value="${esc(bk.p[k])}"></div>`;
+const bkLabel=()=>{const n=parseInt(bk.p.n),s=parseFloat(bk.p.stake);return n>0&&s>0?`Place ${n} trades · ${(n*s).toFixed(2)} ${cur().cur} total`:'Place trades'};
+const bulkView=()=>`<div class="risk" style="margin:0 0 10px"><b>Demo accounts only.</b> Bulk Trader opens several identical trades at the same moment, so a single outcome is multiplied. Wins and losses arrive together.</div>
+<div class="card" style="margin:0 0 10px"><label>Market</label><select data-bk="sym">${opts(SYMS,bk.p.sym)}</select><label>Contract</label><select data-bk="side">${opts(BBSIDES,bk.p.side)}</select>
+<div class="two">${bkf('stake','Stake per trade')}${bkf('n','Number of trades (2–10)')}</div><div class="two">${bkf('ticks','Ticks (1–10)')}${bkf('bar','Barrier digit (Over/Under)')}</div>
+<button class="btn login" id="bkgo" data-bkact="go" style="width:100%;margin-top:6px">${esc(bkLabel())}</button></div><div id="bko"></div>`;
+function bkDraw(){const o=document.getElementById('bko');if(!o)return;
+ o.innerHTML=`<p style="color:var(--mut);margin:6px 2px" role="status">${esc(bk.status||(tr.ws?'Ready.':'Connecting…'))}</p>${bk.total?`<div class="grid" style="padding:0;margin-bottom:10px"><div class="card stat" style="margin:0"><small>Total profit / loss</small><b style="color:${bk.pnl>=0?'#26a69a':'#ef5350'}">${bk.pnl>=0?'+':''}${bk.pnl.toFixed(2)} ${esc(cur().cur)}</b></div><div class="card stat" style="margin:0"><small>Settled</small><b>${bk.done} of ${bk.total}${bk.fail?` · ${bk.fail} rejected`:''}</b></div></div>`:''}
+${bk.rows.map((x,i)=>`<div class="row" style="padding:8px 2px"><span>${i+1}. ${esc(x.t)}</span>${x.p===null?'':`<b style="color:${x.p>=0?'#26a69a':'#ef5350'}">${x.p>=0?'+':''}${x.p.toFixed(2)}</b>`}</div>`).join('')}`}
+function bkEnd(msg){bk.run=false;clearTimeout(bk.wd);bk.status=msg;bkDraw()}
+function bkCheck(){bkDraw();if(bk.done+bk.fail>=bk.total)bkEnd('Finished.')}
+function bkGo(){const p=bk.p,n=parseInt(p.n),s=parseFloat(p.stake),t=parseInt(p.ticks),say=x=>{bk.status=x;bkDraw()},ou=['over','under'].includes(p.side);
+ if(bk.run)return say('Wait for the current trades to finish.');
+ if(!isDemo())return say('Bulk Trader runs on demo accounts only. Switch to your demo account in the header.');
+ if(!tr.ws||tr.ws.readyState!==1)return say('Not connected yet. Wait a moment and try again.');
+ if(!(n>=2&&n<=10&&s>0&&t>=1&&t<=10))return say('Check your settings: 2–10 trades, stake above 0, ticks 1–10.');
+ if(ou&&!(parseInt(p.bar)>=0&&parseInt(p.bar)<=9))return say('Barrier digit must be 0–9.');
+ if(n*s>cur().bal)return say('Total stake is more than your balance.');
+ Object.assign(bk,{run:true,ids:{},done:0,fail:0,total:n,pnl:0,rows:[],status:'Placing '+n+' trades…'});bkDraw();
+ const par={amount:s,basis:'stake',contract_type:CT[p.side],currency:cur().cur,duration:t,duration_unit:'t',underlying_symbol:p.sym};if(ou)par.barrier=String(parseInt(p.bar));
+ for(let i=0;i<n;i++)send({buy:1,price:s,req_id:401+i,parameters:par});
+ clearTimeout(bk.wd);bk.wd=setTimeout(()=>bkEnd('Some trades did not report a result. Check them in DTrader.'),60000)}
+function bkMsg(m,er){if(!bk.run)return;const r=m.req_id>=401&&m.req_id<=410;
+ if(er&&r){bk.fail++;bk.rows.push({t:'Rejected: '+(er.message||'error'),p:null});bkCheck();return}
+ if(m.msg_type==='buy'&&r&&m.buy){bk.ids[m.buy.contract_id]=1;send({proposal_open_contract:1,contract_id:m.buy.contract_id,subscribe:1});return}
+ const o=m.msg_type==='proposal_open_contract'&&m.proposal_open_contract;
+ if(o&&o.is_sold&&bk.ids[o.contract_id]===1){bk.ids[o.contract_id]=2;const pr=+o.profit||0;bk.done++;bk.pnl+=pr;bk.rows.push({t:'Trade settled',p:pr});bkCheck()}}
+document.addEventListener('input',e=>{const k=e.target.dataset&&e.target.dataset.bk;if(!k)return;bk.p[k]=e.target.value;const g=document.getElementById('bkgo');if(g)g.textContent=bkLabel()});
+document.addEventListener('click',e=>{if(e.target.closest('[data-bkact]'))bkGo()});
+// ---- QuickBot: pick a style, set a stake, tap Run (uses the Bot Builder engine, DEMO ONLY) ----
+const qb={stake:'1',style:'balanced',sym:'1HZ100V'};
+const QSTY=[
+ {k:'careful',n:'Careful',d:'Even every time, flat stake, tight limits.',tp:3,sl:5,mx:1,c:{side:'even',ticks:'1',lMult:'1',max:'50'}},
+ {k:'balanced',n:'Balanced',d:'Even, switching to Odd after a loss with a doubling stake.',tp:4,sl:10,mx:8,c:{side:'even',ticks:'1',flip:'1',lMult:'2',max:'30'}},
+ {k:'streak',n:'Streak',d:'Waits for 3 down ticks, then trades Rise.',tp:5,sl:10,mx:8,c:{side:'rise',ticks:'5',entry:'streak',sN:'3',sDir:'down',lMult:'2',max:'20'}},
+ {k:'bold',n:'Bold',d:'Rise/Fall switching with a tripling stake. Losses grow fast.',tp:6,sl:15,mx:9,c:{side:'rise',ticks:'5',flip:'1',lMult:'3',max:'20'}}];
+const qbCards=()=>QSTY.map(x=>`<div class="card qs ${x.k===qb.style?'on':''}" data-qs="${x.k}" style="margin:0 0 8px" role="button" tabindex="0" aria-pressed="${x.k===qb.style}"><b>${x.n} <span class="tag">${riskOf({lMult:x.c.lMult})}</span></b><span style="color:var(--mut)">${x.d}</span></div>`).join('');
+const quickView=()=>`<div class="risk" style="margin:0 0 10px"><b>Demo accounts only.</b> One tap starts a bot with the style you pick. Take profit, stop loss and max stake are set from your stake. Nothing here guarantees profit.</div>
+<div class="card" style="margin:0 0 10px"><label>Market</label><select data-qb="sym">${opts(SYMS,qb.sym)}</select><label>Stake per trade (min 0.35)</label><input data-qb="stake" inputmode="decimal" value="${esc(qb.stake)}"></div>
+<div id="qbs">${qbCards()}</div><button class="btn login" id="bbgo" data-qbgo style="width:100%;margin-top:4px">${bb.on?'Stop':'Run bot'}</button><div id="bbo"></div>`;
+function applyQuick(){const s=parseFloat(qb.stake),x=QSTY.find(y=>y.k===qb.style);
+ if(!(s>=0.35)){bbSay('Stake must be at least 0.35.');return false}
+ const f=v=>String(+(s*v).toFixed(2));
+ bbSet({...BB0,sym:qb.sym,name:'QuickBot '+x.n,stake:String(s),tp:f(x.tp),sl:f(x.sl),maxs:f(x.mx),...x.c});return true}
+document.addEventListener('input',e=>{const k=e.target.dataset&&e.target.dataset.qb;if(k)qb[k]=e.target.value});
+document.addEventListener('click',e=>{const c=e.target.closest('[data-qs]');if(c){qb.style=c.dataset.qs;document.getElementById('qbs').innerHTML=qbCards();return}
+ if(e.target.closest('[data-qbgo]')){if(bb.on)return bbStop('Stopped by you.');if(applyQuick())bbGo()}});
+document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches&&e.target.matches('[data-qs]')){e.preventDefault();e.target.click()}});
+draw();boot();
+</script>
+</body>
+</html>
