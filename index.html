@@ -70,6 +70,13 @@ textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line)
 .bar{height:10px;border-radius:5px;background:var(--act);min-width:2px}.drow{display:grid;grid-template-columns:18px 1fr 52px;gap:8px;align-items:center;margin:6px 0}
 .dch{display:inline-block;width:26px;text-align:center;border-radius:6px;padding:3px 0;margin:2px;font-weight:600;font-size:14px}.dch.e{background:rgba(38,166,154,.22)}.dch.o{background:rgba(245,166,35,.25)}
 .qs{cursor:pointer}.qs.on{border-color:var(--link);box-shadow:0 0 0 1px var(--link)}.qs b{display:block;margin-bottom:2px}
+.chw{position:relative;height:calc(100dvh - 300px);min-height:340px}
+.chh{position:absolute;top:8px;left:8px;z-index:5;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px;display:flex;gap:10px;align-items:center;cursor:pointer;box-shadow:0 1px 6px rgba(0,0,0,.12);max-width:82%}
+.chh b{display:block;line-height:1.2}
+.mkb{background:#111;color:#fff;font-size:11px;font-weight:700;border-radius:4px;padding:2px 5px;min-width:26px;text-align:center;display:inline-block}
+.mk{position:fixed;inset:0;z-index:30;background:var(--card);color:var(--fg);overflow:auto;max-width:640px;margin:auto;padding:calc(env(safe-area-inset-top,0px) + 14px) 16px calc(env(safe-area-inset-bottom,0px) + 14px)}
+.mkh{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.mkg{font-weight:700;margin:20px 0 4px}
+.mkr{display:flex;align-items:center;gap:10px;padding:11px 0;cursor:pointer}.mkr .n{flex:1}.star{background:none;font-size:22px;padding:4px 8px;color:var(--fg)}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightweight-charts/4.2.0/lightweight-charts.standalone.production.js"></script>
 <script src="config.js"></script>
@@ -142,27 +149,59 @@ async function boot(){
   if(sessionStorage.getItem('dt'))await loadAccounts()
  }catch(e){st.err=e.message}
  draw()}
-// ---- Charts: live candles from Deriv's public WebSocket (no login needed) ----
+// ---- Charts: tick line chart (default) or candles, with a markets picker ----
 const SYMS=[['R_10','Volatility 10'],['R_25','Volatility 25'],['R_50','Volatility 50'],['R_75','Volatility 75'],['R_100','Volatility 100'],['1HZ10V','Volatility 10 (1s)'],['1HZ25V','Volatility 25 (1s)'],['1HZ50V','Volatility 50 (1s)'],['1HZ75V','Volatility 75 (1s)'],['1HZ100V','Volatility 100 (1s)'],['frxEURUSD','EUR/USD'],['frxGBPUSD','GBP/USD'],['frxUSDJPY','USD/JPY'],['frxAUDUSD','AUD/USD'],['frxXAUUSD','Gold/USD']];
-const GR=[['M1',60],['M5',300],['M15',900],['M30',1800],['H1',3600],['H4',14400],['D1',86400]];
-const cs={sym:'R_100',gr:60,ws:null,chart:null,ser:null,ping:0};
-const chartView=()=>`<div class="cbar"><select aria-label="Market" data-cs>${SYMS.map(x=>`<option value="${x[0]}" ${x[0]===cs.sym?'selected':''}>${x[1]}</option>`).join('')}</select>${GR.map(g=>`<button class="tf ${g[1]===cs.gr?'on':''}" data-a="gr" data-g="${g[1]}">${g[0]}</button>`).join('')}</div>
-<div class="lastpx" id="px">—</div><div id="ch" style="height:min(60vh,520px)"></div><p id="cst" style="color:var(--mut);font-size:13px">Connecting…</p>`;
+const GR=[['Ticks',0],['M1',60],['M5',300],['M15',900],['M30',1800],['H1',3600],['H4',14400],['D1',86400]];
+const cs={sym:'R_100',gr:0,ws:null,chart:null,ser:null,ping:0,list:null,pip:2,prev:null,q:'',lt:0,fg:'#000'};
+const favs=()=>{try{return JSON.parse(localStorage.getItem('pvfav')||'[]')}catch(e){return[]}};
+const nameOf=s=>((cs.list||[]).find(x=>x.s===s)||{}).n||(SYMS.find(x=>x[0]===s)||[])[1]||s;
+const badge=n=>{const m=String(n).match(/\d+/);return m?`<span class="mkb">${esc(m[0])}</span>`:''};
+const decs=x=>(String(x).split('.')[1]||'').length;
+const chartView=()=>`<div class="cbar">${GR.map(g=>`<button class="tf ${g[1]===cs.gr?'on':''}" data-a="gr" data-g="${g[1]}">${g[0]}</button>`).join('')}</div>
+<div class="chw"><div id="ch" style="position:absolute;inset:0"></div><div class="chh" data-mk role="button" tabindex="0" aria-label="Choose market">${badge(nameOf(cs.sym))}<div><b id="chn">${esc(nameOf(cs.sym))}</b><div id="chp" style="color:var(--mut);font-size:14px">—</div></div><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div></div>
+<p id="cst" style="color:var(--mut);font-size:13px">Connecting…</p>`;
 const setSt=t=>{const e=document.getElementById('cst');if(e)e.textContent=t};
-function stopChart(){clearInterval(cs.ping);if(cs.ws){cs.ws.onclose=null;cs.ws.onmessage=null;cs.ws.close();cs.ws=null}if(cs.chart){cs.chart.remove();cs.chart=null}}
+function setPx(v){const e=document.getElementById('chp');const pv=cs.prev;cs.prev=v;if(!e)return;if(pv===null||pv===undefined){e.textContent=v.toFixed(cs.pip);return}
+ const d=v-pv,up=d>=0;e.innerHTML=`${v.toFixed(cs.pip)} - ${Math.abs(d).toFixed(cs.pip)} (${(pv?Math.abs(d)/Math.abs(pv)*100:0).toFixed(2)}%) <span style="color:${up?'#26a69a':'#e5484d'}">${up?'▲':'▼'}</span>`}
+function stopChart(){closeMk();clearInterval(cs.ping);if(cs.ws){cs.ws.onclose=null;cs.ws.onmessage=null;cs.ws.close();cs.ws=null}if(cs.chart){cs.chart.remove();cs.chart=null}}
 function startChart(){
  stopChart();const el=document.getElementById('ch');if(!el)return;if(!window.LightweightCharts){setSt('Chart library failed to load.');return}
- const css=getComputedStyle(document.documentElement),mut=css.getPropertyValue('--mut').trim(),ln=css.getPropertyValue('--line').trim();
- cs.chart=LightweightCharts.createChart(el,{autoSize:true,layout:{background:{color:'transparent'},textColor:mut},grid:{vertLines:{color:ln},horzLines:{color:ln}},crosshair:{mode:LightweightCharts.CrosshairMode.Normal},timeScale:{timeVisible:true,borderColor:ln},rightPriceScale:{borderColor:ln}});
- cs.ser=cs.chart.addCandlestickSeries({upColor:'#26a69a',downColor:'#ef5350',borderVisible:false,wickUpColor:'#26a69a',wickDownColor:'#ef5350'});
- const ws=cs.ws=new WebSocket('wss://api.derivws.com/trading/v1/options/ws/public'),px=v=>{const e=document.getElementById('px');if(e)e.textContent=v};
- ws.onopen=()=>{setSt('Loading…');ws.send(JSON.stringify({ticks_history:cs.sym,style:'candles',granularity:cs.gr,count:300,end:'latest',subscribe:1}));cs.ping=setInterval(()=>ws.readyState===1&&ws.send(JSON.stringify({ping:1})),30000)};
- ws.onmessage=e=>{const m=JSON.parse(e.data),er=m.error||(m.errors&&m.errors[0]);if(er){setSt(er.message||'Request failed');return}
-  const c=o=>({time:+(o.epoch||o.open_time),open:+o.open,high:+o.high,low:+o.low,close:+o.close});
-  if(m.msg_type==='candles'&&m.candles){cs.ser.setData(m.candles.map(c));cs.chart.timeScale().fitContent();setSt('Live');px(m.candles.at(-1).close)}
-  else if(m.msg_type==='ohlc'&&m.ohlc){cs.ser.update({...c(m.ohlc),time:+m.ohlc.open_time});px(m.ohlc.close)}};
- ws.onerror=()=>setSt('Connection problem.');ws.onclose=()=>setSt('Disconnected. Tap a timeframe to reconnect.');
-}
+ const css=getComputedStyle(document.documentElement),g=n=>css.getPropertyValue(n).trim(),fg=cs.fg=g('--fg')||'#000',mut=g('--mut'),ln=g('--line'),tk=cs.gr===0;
+ cs.prev=null;cs.lt=0;
+ cs.chart=LightweightCharts.createChart(el,{autoSize:true,layout:{background:{color:'transparent'},textColor:mut,fontSize:12},grid:{vertLines:{color:ln},horzLines:{color:ln}},crosshair:{mode:LightweightCharts.CrosshairMode.Normal},timeScale:{timeVisible:true,secondsVisible:tk,borderVisible:false,rightOffset:8},rightPriceScale:{borderVisible:false}});
+ cs.ser=tk?cs.chart.addAreaSeries({lineColor:fg,lineWidth:1,topColor:'rgba(128,128,128,.30)',bottomColor:'rgba(128,128,128,.04)',priceLineColor:fg,crosshairMarkerRadius:4}):cs.chart.addCandlestickSeries({upColor:'#26a69a',downColor:'#ef5350',borderVisible:false,wickUpColor:'#26a69a',wickDownColor:'#ef5350'});
+ const mark=t=>{if(tk)cs.ser.setMarkers([{time:t,position:'inBar',shape:'circle',color:fg,size:1}])};
+ const ws=cs.ws=new WebSocket('wss://api.derivws.com/trading/v1/options/ws/public'),sd=o=>ws.readyState===1&&ws.send(JSON.stringify(o));
+ ws.onopen=()=>{setSt('Loading…');
+  sd(tk?{ticks_history:cs.sym,end:'latest',count:300,style:'ticks',subscribe:1,req_id:8}:{ticks_history:cs.sym,style:'candles',granularity:cs.gr,count:300,end:'latest',subscribe:1,req_id:8});
+  if(!cs.list)sd({active_symbols:'brief',product_type:'basic',req_id:7});cs.ping=setInterval(()=>sd({ping:1}),30000)};
+ ws.onmessage=e=>{const m=JSON.parse(e.data),er=m.error||(m.errors&&m.errors[0]);
+  if(m.req_id===7){if(Array.isArray(m.active_symbols)){cs.list=m.active_symbols.map(a=>({s:a.symbol||a.underlying_symbol,n:a.display_name||a.symbol,g:a.submarket_display_name||a.market_display_name||'Markets'})).filter(x=>x.s);
+   const n=document.getElementById('chn');if(n)n.textContent=nameOf(cs.sym);if(document.getElementById('mk'))renderMkList()}return}
+  if(er){setSt(er.message||'Request failed');return}
+  if(m.msg_type==='history'&&m.history&&tk){const P=m.history.prices.map(Number),T=m.history.times;cs.pip=m.pip_size??(Math.max(...P.slice(-20).map(decs))||2);
+   let lt=0;const d=[];P.forEach((v,i)=>{if(T[i]>lt){lt=T[i];d.push({time:T[i],value:v})}});cs.lt=lt;cs.ser.setData(d);cs.chart.timeScale().fitContent();mark(lt);cs.prev=P.length>1?P[P.length-2]:null;setPx(P[P.length-1]);setSt('Live')}
+  else if(m.msg_type==='tick'&&m.tick&&tk){const t=+m.tick.epoch,v=+m.tick.quote;if(m.tick.pip_size!=null)cs.pip=m.tick.pip_size;if(t>=cs.lt){cs.lt=t;cs.ser.update({time:t,value:v});mark(t)}setPx(v)}
+  else if(m.msg_type==='candles'&&m.candles&&!tk){const c=o=>({time:+(o.epoch||o.open_time),open:+o.open,high:+o.high,low:+o.low,close:+o.close});cs.ser.setData(m.candles.map(c));cs.chart.timeScale().fitContent();
+   cs.pip=m.pip_size??(Math.max(...m.candles.slice(-20).map(x=>decs(x.close)))||2);cs.prev=m.candles.length>1?+m.candles[m.candles.length-2].close:null;setPx(+m.candles[m.candles.length-1].close);setSt('Live')}
+  else if(m.msg_type==='ohlc'&&m.ohlc&&!tk){const o=m.ohlc;cs.ser.update({time:+o.open_time,open:+o.open,high:+o.high,low:+o.low,close:+o.close});setPx(+o.close)}};
+ ws.onerror=()=>setSt('Connection problem.');ws.onclose=()=>setSt('Disconnected. Tap a button above to reconnect.')}
+// markets picker
+function toggleFav(s){const f=favs(),i=f.indexOf(s);i<0?f.push(s):f.splice(i,1);try{localStorage.setItem('pvfav',JSON.stringify(f))}catch(e){}}
+function openMk(){if(document.getElementById('mk'))return;const d=document.createElement('div');d.id='mk';d.className='mk';d.setAttribute('role','dialog');d.setAttribute('aria-label','Markets');
+ d.innerHTML=`<div class="mkh"><b style="font-size:20px">Markets</b><button data-mkx aria-label="Close" style="background:none;font-size:26px;line-height:1;padding:4px 8px">✕</button></div><input id="mks" type="search" placeholder="Search…" autocomplete="off"><div id="mkl"></div>`;document.body.appendChild(d);cs.q='';renderMkList()}
+function closeMk(){const d=document.getElementById('mk');if(d)d.remove()}
+function renderMkList(){const l=document.getElementById('mkl');if(!l)return;const fv=favs(),q=(cs.q||'').toLowerCase();
+ const all=cs.list&&cs.list.length?cs.list:SYMS.map(x=>({s:x[0],n:x[1],g:x[0].startsWith('frx')?'Forex':'Continuous Indices'}));
+ const items=all.filter(x=>!q||x.n.toLowerCase().includes(q)),gr={};if(fv.length)gr['Favourites']=items.filter(x=>fv.includes(x.s));
+ items.forEach(x=>(gr[x.g]=gr[x.g]||[]).push(x));
+ const ord=g=>g==='Favourites'?0:g==='Continuous Indices'?1:g==='Crash/Boom Indices'?2:3;
+ l.innerHTML=Object.keys(gr).filter(g=>gr[g].length).sort((a,b)=>ord(a)-ord(b)||(ord(a)===3?a.localeCompare(b):0)).map(g=>`<div class="mkg">${esc(g)}</div>`+gr[g].map(x=>`<div class="mkr" data-pick="${esc(x.s)}" role="button" tabindex="0">${badge(x.n)}<span class="n">${esc(x.n)}</span><button class="star" data-fav="${esc(x.s)}" aria-label="Favourite">${fv.includes(x.s)?'★':'☆'}</button></div>`).join('')).join('')||'<p style="color:var(--mut)">No markets found.</p>'}
+document.addEventListener('click',e=>{const f=e.target.closest('[data-fav]');if(f){toggleFav(f.dataset.fav);renderMkList();return}
+ const p=e.target.closest('[data-pick]');if(p){cs.sym=p.dataset.pick;closeMk();draw();return}
+ if(e.target.closest('[data-mkx]')){closeMk();return}if(e.target.closest('[data-mk]'))openMk()});
+document.addEventListener('input',e=>{if(e.target.id==='mks'){cs.q=e.target.value;renderMkList()}});
+document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches&&e.target.matches('[data-mk],[data-pick]')){e.preventDefault();e.target.click()}});
 // ---- DTrader: Rise/Fall and Even/Odd on your Deriv account (OTP WebSocket) ----
 const tr={sym:'R_100',kind:'rf',stake:'1',dur:'5',unit:'t',ws:null,prop:{},open:{},done:[],tm:0,ping:0,dt:0};
 const KINDS={rf:[['CALL','Rise'],['PUT','Fall']],eo:[['DIGITEVEN','Even'],['DIGITODD','Odd']]};
